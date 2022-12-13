@@ -1,13 +1,14 @@
-import itertools
+import functools as ft
 
 lines = []
-left, right = [], []
+left, right, signals = [], [], []
 # with open('zad13_demo.txt') as f:
 with open('zad13_input.txt') as f:
 	lines = [line.strip() for line in f]
 	for l in lines:
 		if(l == ""):
 			continue
+		signals.append(eval(l))
 		if(lines.index(l)%3 == 0):
 			left.append(eval(l))
 		else:
@@ -41,3 +42,14 @@ for l, r in zip(left, right):
 	i += 1
 
 print(correct_indices, sum(correct_indices))
+
+signals.append([[2]])
+signals.append([[6]])
+signals.sort(key= ft.cmp_to_key(indices))
+signals = signals[::-1]
+product = 1
+for index, s in enumerate(signals):
+	if(s == [[2]] or s == [[6]]):
+		product *= (index+1)
+		print(index+1, s)
+print(product)
